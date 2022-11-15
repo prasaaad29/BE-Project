@@ -1,0 +1,12 @@
+.ht
+{
+    height: 100vh;
+}
+
+body
+{
+    background-image: url("./img/new.webp");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: 100% 100%;
+}
