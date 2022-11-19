@@ -24,6 +24,7 @@
  2. run "bin\neo4j console" in the terminal
  3. once the server is started go to the web browser search for http://localhost:7474/
  4. Connect to the database with user=neo4j and password=prasadgosavi
+ 5. Once the connect is established run "match (n) return n" there , to see the visual representation of graph 
  
  ### 5. Go to the VScode 
  1. run "nodemon app.js" in server integrated terminal
