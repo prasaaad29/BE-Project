@@ -2,8 +2,7 @@ import React, { useState, useEffect } from 'react'
 
 import { useNavigate } from 'react-router-dom';
 
-function AddRelationship() {
-
+function Deleterelationship() {
   const navigate = useNavigate();
 
   const [data1, setData1] = useState({
@@ -22,7 +21,7 @@ function AddRelationship() {
     const { node1, node2, relationship } = data1;
     e.preventDefault();
 
-    const res = await fetch("/test_api/neo4j_relation", {
+    const res = await fetch("/test_api/neo4j_deleterelationship", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -35,7 +34,7 @@ function AddRelationship() {
     console.log(stat);
 
     if (stat === 200) {
-      window.alert("Relation is created !!");
+      window.alert("Relation is Deleted !!");
       // navigate("/Screen1");
     }
   };
@@ -145,7 +144,7 @@ function AddRelationship() {
               />
             </div>
 
-            <button type="submit" className="btn btn-success m-3" onClick={submithandler}>Create Relation</button>
+            <button type="submit" className="btn btn-success m-3" onClick={submithandler}>Delete Relationship</button>
             <button type="button" className="btn btn-dark" onClick={goback}>Go Back</button>
             
             </div>
@@ -181,4 +180,4 @@ function AddRelationship() {
   )
 }
 
-export default AddRelationship
+export default Deleterelationship

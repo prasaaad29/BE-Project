@@ -24,6 +24,7 @@ exports.create_user = async function (name) {
         console.error(err);
         return user;
     }
+    session.close();
     console.log(user.records[0].get(0));
     return user.records[0].get(0).properties.name;
 }
@@ -51,3 +52,46 @@ exports.create_relation = async function(node1,node2,relationship)
 
 
 }
+
+
+exports.get_nodes_relationships = async function () {
+    let session = driver.session();
+    const num_nodes = await session.run('MATCH (n)-[r]->(m) return n,m,r', {
+    });
+    session.close();
+    return (num_nodes.records)
+
+};
+
+
+exports.delete_node = async function (name) {
+    let session = driver.session();
+    let user;
+    try {
+        console.log("inside");
+        user = await session.run(`MATCH (n:user {name:"${name}" }) DELETE n`)
+    }
+    catch (err) {
+        console.log("inside catch");
+        console.error(err);
+        return user;
+    }
+    session.close();
+    console.log("user",user.records);
+    return (user.records)
+
+};
+
+
+exports.delete_relation = async function(node1,node2,relationship)
+{
+
+    let session = driver.session();
+    const data = await session.run(`MATCH (a:user{name:"${node1}"})-[r:${relationship}]->(b:user{name:"${node2}"}) DELETE r `)
+    session.close();
+    console.log(data);
+    return data;
+
+
+}
+

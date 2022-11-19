@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 
 import { useNavigate } from 'react-router-dom';
 
-function AddNode() {
+function DeleteNode() {
 
     const navigate = useNavigate();
 
@@ -18,7 +18,7 @@ function AddNode() {
         const { name } = data;
         e.preventDefault();
 
-        const res = await fetch("/test_api/neo4j_post", {
+        const res = await fetch("/test_api/neo4j_deletenode", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -31,7 +31,7 @@ function AddNode() {
         console.log(stat);
 
         if (stat === 200) {
-            window.alert("node added !!");
+            window.alert("node Deleted !!");
             // navigate("/Screen1");
         }
     };
@@ -97,7 +97,7 @@ function AddNode() {
                         />
                     </div>
 
-                    <button type="submit" className="btn btn-success me-3 my-2" onClick={submithandler}>Add node</button>
+                    <button type="submit" className="btn btn-success me-3 my-2" onClick={submithandler}>Delete node</button>
                     <button type="button" className="btn btn-dark my-2" onClick={goback}>Go Back</button>
                 </form>
 
@@ -131,4 +131,4 @@ function AddNode() {
     )
 }
 
-export default AddNode
+export default DeleteNode

@@ -48,4 +48,35 @@ router.post('/neo4j_relation',async function(req,res,next){
 
 })
 
+router.get('/neo4j_getrelationships',async function(req,res,next){
+
+    let result = await neo4j_calls.get_nodes_relationships();
+    console.log(result);
+    res.status(200).send(result);
+    return result;
+
+})
+
+router.post('/neo4j_deletenode',async function(req,res,next){
+    
+    let {name} = req.body;
+    console.log("name",name);
+    let string = await neo4j_calls.delete_node(name);
+    res.status(200).send("User deleted");
+    return 700000;
+
+})
+
+router.post('/neo4j_deleterelationship',async function(req,res,next){
+    
+    let {node1,node2,relationship} = req.body;
+    let string = await neo4j_calls.delete_relation(node1,node2,relationship);
+    res.status(200).send("relation is Deleted!!");
+    return 700000;
+
+
+})
+
+
+
 module.exports = router;
