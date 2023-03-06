@@ -13,10 +13,12 @@ function HomePage() {
 
     return (
         <>
+        
             <div className='ht bg d-flex justify-content-center align-items-center'>
-                <button className="btn btn-danger px-4 py-3" type="button" onClick={changepage}><h3>Get started!</h3></button>
-                
+                <button className="btn btn-primary px-4 py-3 fs-3" type="button" onClick={changepage}><h3>Get started!</h3></button> 
             </div>
+                
+
         </>
     )
 }

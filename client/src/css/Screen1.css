@@ -1,0 +1,26 @@
+.topnav
+{
+    z-index: 3;
+    background-color: rgb(254, 254, 255);
+    box-shadow: 0px 15px 10px -15px #111;
+}
+
+.sidebar
+{
+    z-index: 2;
+    background-color: rgb(254, 254, 255);
+    box-shadow: 15px 0px 10px -15px #111;
+}
+
+.mainarea
+{
+    
+    background-color: rgb(244, 247, 251);
+}
+
+
+
+.heightofpage
+{
+    height: 85vh;
+}

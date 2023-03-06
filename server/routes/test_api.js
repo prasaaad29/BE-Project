@@ -16,7 +16,8 @@ router.get('/neo4j_get', async function (req, res, next) {
 
 router.post('/neo4j_post', async function (req, res, next) {
     //Passing in "name" parameter in body of POST request
-    let { name } = req.body;
+    let  name  = req.body.name;
+    
     let string = await neo4j_calls.create_user(name);
     res.status(200).send("User named " + string + " created")
     return 700000;
@@ -27,10 +28,10 @@ router.get('/neo4j_getnames',async function(req,res,next){
 
     let result = await neo4j_calls.get_names();
     // console.log("data");
-    // console.log(result);
+    console.log(result);
     let alldata=[];
     result.map((p)=>{
-        // console.log(p._fields[0].name);
+        console.log(p._fields);
         alldata.push(p._fields[0].name); 
     })
     console.log(alldata);
@@ -59,7 +60,7 @@ router.get('/neo4j_getrelationships',async function(req,res,next){
 
 router.post('/neo4j_deletenode',async function(req,res,next){
     
-    let {name} = req.body;
+    let name = req.body.name;
     console.log("name",name);
     let string = await neo4j_calls.delete_node(name);
     res.status(200).send("User deleted");
@@ -76,6 +77,33 @@ router.post('/neo4j_deleterelationship',async function(req,res,next){
 
 
 })
+
+router.post('/neo4j_getimpacted',async function(req,res,next){
+    let { node1 } = req.body;
+    let result = await neo4j_calls.get_impacted(node1);
+    let alldata=[];
+    result.map((p)=>{
+        alldata.push(p._fields[0].name); 
+    })
+    console.log("alldata "+alldata);
+    res.status(200).send(alldata);
+    return alldata;
+})
+
+router.post('/neo4j_getdependent',async function(req,res,next){
+    let { node1 } = req.body;
+    let result = await neo4j_calls.get_dependent(node1);
+    console.log(result);
+    let alldata=[];
+
+    result.map((p)=>{
+        alldata.push(p._fields[0].name); 
+    })
+    console.log(alldata);
+    res.status(200).send(alldata);
+    return alldata;
+})
+
 
 
 

@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom';
 import "../css/Screen1.css"
 
-import { useNavigate } from 'react-router-dom';
-
-function AddNode() {
-
+function GetDependent() {
+  
     const navigate = useNavigate();
 
     const [data, setData] = useState({
@@ -19,7 +18,7 @@ function AddNode() {
         const { name } = data;
         e.preventDefault();
 
-        const res = await fetch("/test_api/neo4j_post", {
+        const res = await fetch("/test_api/neo4j_getdependent", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -76,12 +75,13 @@ function AddNode() {
     }, []);
 
 
+
     return (
 
 
         <div className='ht'>
             <div className='topnav border border-2 d-flex justify-content-between'>
-                <h1 className='py-3 m-3'>Add Node</h1>
+                <h1 className='py-3 m-3'>Get Dependent Nodes</h1>
                 <h6 className='m-5'>Sarvatra eLab Technologies.</h6>
             </div>
 
@@ -105,7 +105,7 @@ function AddNode() {
                                 />
                             </div>
                             <div className="mb-3 col-12">
-                                <button type="submit" className="col-12 p-3 btn btn-success my-2 fs-5" onClick={submithandler}>Add node</button>
+                                <button type="submit" className="col-12 p-3 btn btn-success my-2 fs-5" onClick={submithandler}>Get Impacted nodes</button>
                             </div>
                             <div className="mb-3 col-12">
                                 <button type="button" className="col-12 p-3 btn btn-dark my-2 fs-5" onClick={goback}>Go Back</button>
@@ -133,4 +133,4 @@ function AddNode() {
     )
 }
 
-export default AddNode
+export default GetDependent

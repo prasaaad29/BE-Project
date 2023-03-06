@@ -12,13 +12,12 @@ exports.get_num_nodes = async function () {
 
 };
 
+
 exports.create_user = async function (name) {
     let session = driver.session();
     let user = "No User Was Created";
     try {
-        user = await session.run('MERGE (n:user {name: $id}) RETURN n', {
-            id: name
-        });
+        user = await session.run(`MERGE (n:user {name: "${name}"}) RETURN n`);
     }
     catch (err) {
         console.error(err);
@@ -32,18 +31,15 @@ exports.create_user = async function (name) {
 exports.get_names = async function(){
 
     let session = driver.session();
-    const data = await session.run('Match (n:user) return properties(n)', {
+    const data = await session.run('Match (n) return properties(n)', {
     });
     session.close();
-    // console.log(data);
-
+    console.log(data);
     return data.records;
-
 }
 
 exports.create_relation = async function(node1,node2,relationship)
 {
-
     let session = driver.session();
     const data = await session.run(`match (a:user),(b:user) where a.name="${node1}" AND b.name="${node2}" CREATE (a)-[: ${relationship}]->(b) RETURN a,b`)
     session.close();
@@ -93,5 +89,24 @@ exports.delete_relation = async function(node1,node2,relationship)
     return data;
 
 
+}
+
+exports.get_impacted = async function(node1){
+    let session = driver.session();
+    console.log(node1);
+    const data = await session.run(`MATCH p=(n)-[*]->(f:user) WHERE f.name="${node1}" RETURN properties(n)`, {
+    });
+    console.log(data.records);
+    session.close();
+    return data.records;
+}
+
+exports.get_dependent = async function(node1){
+    let session = driver.session();
+    console.log(node1);
+    const data = await session.run(`MATCH p=(f:user)-[*]->(n) WHERE f.name="${node1}" RETURN properties(n)`, {
+    });
+    session.close();
+    return data.records;
 }
 

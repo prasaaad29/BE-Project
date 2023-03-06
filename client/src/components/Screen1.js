@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
-import "./HomePage.css"
+import "../css/Screen1.css"
 
 
 function Screen1() {
@@ -18,6 +18,12 @@ function Screen1() {
     }
     const changepage4 = () => {
         navigate("/Deleterelationship");
+    }
+    const changepage5 = () => {
+        navigate("/GetImpacted");
+    }
+    const changepage6 = () => {
+        navigate("/GetDependent");
     }
 
     const [num, setNum] = useState(0);
@@ -94,48 +100,42 @@ function Screen1() {
 
 
     return (
-        <div className='col-11 mx-auto bg-screen1 ht'>
-
-            <div className='row ht'>
-                <div className="col-6 d-flex flex-column justify-content-center align-items-center">
-
-
-                    <div>
-                        <button className="col-12 btn btn-danger px-4 py-3 m-3" type="button" onClick={getnodes}>Get total number of nodes</button>
-                        <h4 className='ps-3 text-warning'>Total number of nodes - {num.result}</h4>
-
-                    </div>
-
-                    <div className="row d-flex">
-                        <div className='col-6'>
-                            <button className="col-12 btn btn-danger px-4 py-3 m-3" type="button" onClick={changepage1}>Add a node</button>
-                        </div>
-                        <div className='col-6'>
-                            <button className="col-12 btn btn-danger px-4 py-3 m-3" type="button" onClick={changepage2}>Create a relationship</button>
-                        </div>
-                    </div>
-                    <div className="row d-flex">
-                        <div className='col-6'>
-                            <button className="col-12 btn btn-danger px-4 py-3 m-3" type="button" onClick={changepage3}>Delete a node</button>
-                        </div>
-                        <div className='col-6'>
-                            <button className="col-12 btn btn-danger px-4 py-3 m-3" type="button" onClick={changepage4}>Delete a relationship</button>
-                        </div>
-                    </div>
 
 
 
-                </div>
-                <div className="col-6 d-flex flex-column justify-content-center align-items-center">
-                    <div className='col-6 mx-auto'>
-                        {nodes.map((p) => (<a className="btn btn-success btn-lg m-3 rounded-pill p-4" tabindex="-1" role="button" aria-disabled="true">{p}</a>))}
+        <div className='ht'>
+            <div className='topnav border border-2 d-flex justify-content-between'>
+                <h1 className='py-3 m-3'>GraphDB - Impact Analysis</h1>
+                <h6 className='m-5'>Sarvatra eLab Technologies.</h6>
+            </div>
+
+            <div className='row'>
+                <div className='sidebar col-3'>
+                    <div className='heightofpage d-flex flex-column align-items-center justify-content-center'>
+                        <button className="col-7 mx-auto btn btn-primary px-4 py-3 m-3" type="button" onClick={changepage1}>Add a node</button>
+                        <button className="col-7 mx-auto btn btn-primary px-4 py-3 m-3" type="button" onClick={changepage2}>Create a relationship</button>
+                        <button className="col-7 mx-auto btn btn-primary px-4 py-3 m-3" type="button" onClick={changepage3}>Delete a node</button>
+                        <button className="col-7 mx-auto btn btn-primary px-4 py-3 m-3" type="button" onClick={changepage4}>Delete a relationship</button>
+                        <button className="col-7 mx-auto btn btn-primary px-4 py-3 m-3" type="button" onClick={changepage5}>Get Impacted Nodes</button>
+                        <button className="col-7 mx-auto btn btn-primary px-4 py-3 m-3" type="button" onClick={changepage6}>Get Dependent Nodes</button>
                     </div>
 
                 </div>
-
+                <div className='mainarea col-9 shadow-sm'>
+                    <div className='col-11 mx-auto bg-screen1 heightofpage'>
+                        <div className='row heheightofpagei'>
+                            <div className="col-12 d-flex flex-column justify-content-center align-items-center">
+                                <div className='col-12 mx-auto my-5'>
+                                    {nodes.map((p) => (<a className="btn btn-success btn-lg m-3 rounded-pill p-4" tabindex="-1" role="button" aria-disabled="true">{p}</a>))}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
         </div>
+
 
     )
 }

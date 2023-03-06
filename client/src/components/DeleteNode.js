@@ -76,55 +76,61 @@ function DeleteNode() {
 
 
     return (
-        <div className='d-flex align-item-center'>
 
-            <div className='col-4 mx-auto my-5'>
+        <div className='ht'>
+            <div className='topnav border border-2 d-flex justify-content-between'>
+                <h1 className='py-3 m-3'>Delete Node</h1>
+                <h6 className='m-5'>Sarvatra eLab Technologies.</h6>
+            </div>
 
-                <form method="POST" className='col-9 mx-auto m-3 border border-warning border-2 p-5'>
-                    <div className="mb-3">
-                        <div className="mb-3">
+            <div className='row'>
+                <div className='sidebar col-3 bg-primary'>
+                    <div className='heightofpage d-flex flex-column align-items-center justify-content-center'>
+                        <form method="POST" className='col-9 mx-auto m-3 p-5'>
 
-                            <label for="name" className="form-label"><h3 className='text-danger'>Name - </h3></label>
-                        </div>
-                        <input
-                            type="text"
-                            id='name'
-                            label="Name"
-                            value={data.name}
-                            onChange={(e) =>
-                                setData({ ...data, name: e.target.value })
-                            }
-                        />
-                    </div>
+                            <div className="mb-3">
+                                {/* <input
+                                    type="text"
+                                    id='name'
+                                    label="Name"
+                                    className="p-2 rounded fs-5 my-3"
+                                    placeholder='Node'
+                                    value={data.name}
+                                    onChange={(e) =>
+                                        setData({ ...data, name: e.target.value })
+                                    }
+                                /> */}
+                                <select className='fs-4' name="name" id="name" onChange={(e) =>
+                                    setData({ ...data, name: e.target.value })}>
+                                    {nodes.map((p) => (<option value={p}>{p}</option>))}
+                                </select>
 
-                    <button type="submit" className="btn btn-success me-3 my-2" onClick={submithandler}>Delete node</button>
-                    <button type="button" className="btn btn-dark my-2" onClick={goback}>Go Back</button>
-                </form>
-
-                <div>
-
-                    <div className='col-9 mx-auto m-3 p-5'>
-                        <table className='table table-bordered'>
-                            <thead>
-                                <tr className='text-danger fw-bold fs-4'>
-                                    <th className='p-3'>Nodes</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {nodes.map((p, idx) => (<tr className="m-3 rounded-pill fs-5 p-4 text-light border-collapse" tabindex="-1" role="button" aria-disabled="true"><th className='p-2'>{idx + 1} - {p}</th></tr>))}
-                            </tbody>
-
-                        </table>
+                            </div>
+                            <div className="mb-3 col-12">
+                                <button type="submit" className="col-12 p-3 fs-5 btn btn-success my-2" onClick={submithandler}>Delete node</button>
+                            </div>
+                            <div className="mb-3 col-12">
+                                <button type="button" className="col-12 p-3 fs-5 btn btn-dark my-2" onClick={goback}>Go Back</button>
+                            </div>
+                        </form>
 
                     </div>
 
                 </div>
-
-
+                <div className='mainarea col-9 shadow-sm'>
+                    <div className='mainarea col-9 shadow-sm'>
+                        <div className='col-11 mx-auto bg-screen1 heightofpage'>
+                            <div className='row heheightofpagei'>
+                                <div className="col-12 d-flex flex-column justify-content-center align-items-center">
+                                    <div className='col-12 mx-auto my-5'>
+                                        {nodes.map((p) => (<a className="btn btn-success btn-lg m-3 rounded-pill p-4" tabindex="-1" role="button" aria-disabled="true">{p}</a>))}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-
-
-
 
         </div>
 
