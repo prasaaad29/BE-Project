@@ -100,7 +100,7 @@ function DeleteNode() {
                                         setData({ ...data, name: e.target.value })
                                     }
                                 /> */}
-                                <select className='fs-4' name="name" id="name" onChange={(e) =>
+                                <select className='px-5 py-3 rounded fs-5 my-3' name="name" id="name" onChange={(e) =>
                                     setData({ ...data, name: e.target.value })}>
                                     {nodes.map((p) => (<option value={p}>{p}</option>))}
                                 </select>

@@ -13,28 +13,38 @@ exports.get_num_nodes = async function () {
 };
 
 
-exports.create_user = async function (name) {
+exports.create_user = async function (type,name,status) {
     let session = driver.session();
-    let user = "No User Was Created";
+    let user = "No user Was Created";
     try {
-        user = await session.run(`MERGE (n:user {name: "${name}"}) RETURN n`);
+        user = await session.run(`MERGE (n:${type} {name: "${name}",status:"${status}"}) RETURN properties(n)`);
     }
     catch (err) {
         console.error(err);
         return user;
     }
     session.close();
-    console.log(user.records[0].get(0));
-    return user.records[0].get(0).properties.name;
+    
+    return user.records[0]._fields[0];
+
 }
 
 exports.get_names = async function(){
 
     let session = driver.session();
-    const data = await session.run('Match (n) return properties(n)', {
-    });
+
+    let data;
+
+    try {
+        data = await session.run('Match (n) return id(n),labels(n),properties(n)');
+    }
+    catch (err) {
+        console.error(err);
+        return user;
+    }
+    
     session.close();
-    console.log(data);
+    console.log("data="+data.records);
     return data.records;
 }
 
@@ -88,12 +98,12 @@ exports.delete_relation = async function(node1,node2,relationship)
     console.log(data);
     return data;
 
-
 }
+
 
 exports.get_impacted = async function(node1){
     let session = driver.session();
-    console.log(node1);
+    console.log("node1="+node1);
     const data = await session.run(`MATCH p=(n)-[*]->(f:user) WHERE f.name="${node1}" RETURN properties(n)`, {
     });
     console.log(data.records);
@@ -103,10 +113,9 @@ exports.get_impacted = async function(node1){
 
 exports.get_dependent = async function(node1){
     let session = driver.session();
-    console.log(node1);
+    console.log("node1="+node1);
     const data = await session.run(`MATCH p=(f:user)-[*]->(n) WHERE f.name="${node1}" RETURN properties(n)`, {
     });
     session.close();
     return data.records;
 }
-

@@ -15,24 +15,32 @@ function GetDependent() {
     }
 
     const submithandler = async (e) => {
-        const { name } = data;
+        const {name}=data;
         e.preventDefault();
+        try {
+            const res = await fetch(`/test_api/neo4j_getdependent/${name}`, {
+                method: "GET",
+                headers: {
+                    Accept: "application/json",
+                    "Content-Type": "application/json",
+                },
+                withCredentials: true,
+                credentials: "include",
+            });
 
-        const res = await fetch("/test_api/neo4j_getdependent", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ name }),
-        });
+            const data2 = await res.json();
+            const stat = res.status;
 
-        const stat = res.status;
+            console.log(stat);
 
-        console.log(stat);
+            setNodes(data2);
 
-        if (stat === 200) {
-            window.alert("node added !!");
-            // navigate("/Screen1");
+            if (!(stat === 200)) {
+                const error = new Error(res.error);
+                throw error;
+            }
+        } catch (err) {
+            console.log(err);
         }
     };
 
@@ -70,9 +78,9 @@ function GetDependent() {
 
     }
 
-    useEffect(() => {
-        getdata();
-    }, []);
+    // useEffect(() => {
+    //     getdata();
+    // }, []);
 
 
 
@@ -89,7 +97,7 @@ function GetDependent() {
                 <div className='sidebar col-3 bg-primary'>
                     <div className='heightofpage d-flex flex-column align-items-center justify-content-center'>
 
-                        <form method="POST" className='col-9 mx-auto m-3 p-5'>
+                        <form method="GET" className='col-9 mx-auto m-3 p-5'>
                             
                             <div className="mb-3">
                                 <input

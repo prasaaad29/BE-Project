@@ -17,27 +17,36 @@ function GetImpacted() {
     }
 
     const submithandler = async (e) => {
-        const { name } = data;
+        
+        const {name} = data;
+
         e.preventDefault();
 
-        const res = await fetch("/test_api/neo4j_getimpacted", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ name }),
-        });
-        const data2 = await res.json();
-        console.log(data2)
-        setNodes(data2)
-        // console.log(data2);
-        const stat = res.status;
+        try {
+            const res = await fetch(`/test_api/neo4j_getimpacted/${name}`, {
+                method: "GET",
+                headers: {
+                    Accept: "application/json",
+                    "Content-Type": "application/json",
+                },
+                withCredentials: true,
+                credentials: "include",
+            });
 
-        console.log(stat);
+            const data2 = await res.json();
+            const stat = res.status;
 
-        if (stat === 200) {
-            window.alert("Impacted nodes are fetched !!");
-            // navigate("/Screen1");
+            console.log(stat);
+
+            setNodes(data2);
+            // console.log(nodes);
+
+            if (!(stat === 200)) {
+                const error = new Error(res.error);
+                throw error;
+            }
+        } catch (err) {
+            console.log(err);
         }
     };
 
@@ -45,8 +54,9 @@ function GetImpacted() {
 
     const getdata = async () => {
 
+        
         try {
-            const res = await fetch("/test_api/neo4j_getnames", {
+            const res = await fetch(`/test_api/neo4j_getnames`, {
                 method: "GET",
                 headers: {
                     Accept: "application/json",
@@ -75,10 +85,9 @@ function GetImpacted() {
 
     }
 
-    useEffect(() => {
-        getdata();
-    }, []);
-
+    // useEffect(() => {
+    //     getdata();
+    // }, []);
 
 
     return (
@@ -94,7 +103,7 @@ function GetImpacted() {
                 <div className='sidebar col-3 bg-primary'>
                     <div className='heightofpage d-flex flex-column align-items-center justify-content-center'>
 
-                        <form method="POST" className='col-9 mx-auto m-3 p-5'>
+                        <form method="GET" className='col-9 mx-auto m-3 p-5'>
                             
                             <div className="mb-3">
                                 <input

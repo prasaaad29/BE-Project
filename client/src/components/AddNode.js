@@ -8,7 +8,9 @@ function AddNode() {
     const navigate = useNavigate();
 
     const [data, setData] = useState({
-        name: ""
+        type:"",
+        name: "",
+        status:""
     });
 
     const goback = () => {
@@ -16,7 +18,7 @@ function AddNode() {
     }
 
     const submithandler = async (e) => {
-        const { name } = data;
+        const { type,name,staus } = data;
         e.preventDefault();
 
         const res = await fetch("/test_api/neo4j_post", {
@@ -24,7 +26,7 @@ function AddNode() {
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({ name }),
+            body: JSON.stringify({ type,name,staus }),
         });
 
         const stat = res.status;
@@ -94,13 +96,35 @@ function AddNode() {
                             <div className="mb-3">
                                 <input
                                     type="text"
+                                    id='type'
+                                    label="type"
+                                    className="p-3 rounded fs-5 my-3"
+                                    placeholder='Type'
+                                    value={data.type}
+                                    onChange={(e) =>
+                                        setData({ ...data, type: e.target.value })
+                                    }
+                                />
+                                <input
+                                    type="text"
                                     id='name'
                                     label="Name"
-                                    className="p-2 rounded fs-4 my-3"
+                                    className="p-3 rounded fs-5 my-3"
                                     placeholder='Name'
                                     value={data.name}
                                     onChange={(e) =>
                                         setData({ ...data, name: e.target.value })
+                                    }
+                                />
+                                <input
+                                    type="text"
+                                    id='status'
+                                    label="status"
+                                    className="p-3 rounded fs-5 my-3"
+                                    placeholder='Status'
+                                    value={data.status}
+                                    onChange={(e) =>
+                                        setData({ ...data, status: e.target.value })
                                     }
                                 />
                             </div>
