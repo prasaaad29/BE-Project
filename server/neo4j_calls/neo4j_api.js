@@ -70,12 +70,13 @@ exports.get_nodes_relationships = async function () {
 };
 
 
-exports.delete_node = async function (name) {
+exports.delete_node = async function (id) {
     let session = driver.session();
     let user;
+    parseInt(id);
     try {
         console.log("inside");
-        user = await session.run(`MATCH (n:user {name:"${name}" }) DELETE n`)
+        user = await session.run(`MATCH (n) where id(n)=${id} detach DELETE n`)
     }
     catch (err) {
         console.log("inside catch");

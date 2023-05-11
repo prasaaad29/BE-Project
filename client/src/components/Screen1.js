@@ -126,7 +126,7 @@ function Screen1() {
                         <div className='row heheightofpagei'>
                             <div className="col-12 d-flex flex-column justify-content-center align-items-center">
                                 <div className='col-12 mx-auto my-5'>
-                                    {nodes.map((p) => (<a className="btn btn-success btn-lg m-3 rounded-pill p-4" tabindex="-1" role="button" aria-disabled="true">{p}</a>))}
+                                    {nodes.map((p) => (<a className="btn btn-success btn-lg m-3 rounded-pill p-4" tabindex="-1" role="button" aria-disabled="true">{p[2].name}</a>))}
                                 </div>
                             </div>
                         </div>

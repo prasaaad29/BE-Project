@@ -2,12 +2,34 @@ import React, { useState, useEffect } from 'react'
 
 import { useNavigate } from 'react-router-dom';
 
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import Modal from '@mui/material/Modal';
+
+const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    p: 4,
+};
+
+
 function DeleteNode() {
+
+    const [open, setOpen] = useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
 
     const navigate = useNavigate();
 
     const [data, setData] = useState({
-        name: ""
+        id: ""
     });
 
     const goback = () => {
@@ -15,15 +37,16 @@ function DeleteNode() {
     }
 
     const submithandler = async (e) => {
-        const { name } = data;
-        e.preventDefault();
+        const { id } = data;
 
+        e.preventDefault();
+        console.log("id=" + id);
         const res = await fetch("/test_api/neo4j_deletenode", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({ name }),
+            body: JSON.stringify({ id }),
         });
 
         const stat = res.status;
@@ -101,8 +124,8 @@ function DeleteNode() {
                                     }
                                 /> */}
                                 <select className='px-5 py-3 rounded fs-5 my-3' name="name" id="name" onChange={(e) =>
-                                    setData({ ...data, name: e.target.value })}>
-                                    {nodes.map((p) => (<option value={p}>{p}</option>))}
+                                    setData({ ...data, id: e.target.value })}>
+                                    {nodes.map((p) => (<option value={p[0].low}>{p[2].name}</option>))}
                                 </select>
 
                             </div>
@@ -117,15 +140,39 @@ function DeleteNode() {
                     </div>
 
                 </div>
+
                 <div className='mainarea col-9 shadow-sm'>
                     <div className='mainarea col-9 shadow-sm'>
                         <div className='col-11 mx-auto bg-screen1 heightofpage'>
                             <div className='row heheightofpagei'>
                                 <div className="col-12 d-flex flex-column justify-content-center align-items-center">
                                     <div className='col-12 mx-auto my-5'>
-                                        {nodes.map((p) => (<a className="btn btn-success btn-lg m-3 rounded-pill p-4" tabindex="-1" role="button" aria-disabled="true">{p}</a>))}
+                                        {nodes.map((p) => (<a className="btn btn-success btn-lg m-3 rounded-pill p-4" tabindex="-1" role="button" aria-disabled="true">{p[2].name}</a>))}
                                     </div>
                                 </div>
+
+                                <Button onClick={handleOpen}>Open modal</Button>
+                                <Modal
+                                    open={open}
+                                    onClose={handleClose}
+                                    aria-labelledby="modal-modal-title"
+                                    aria-describedby="modal-modal-description"
+                                >
+                                    <Box sx={style}>
+                                        <Typography id="modal-modal-title" variant="h6" component="h2">
+                                            Text in a modal
+                                        </Typography>
+                                        <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                                            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+                                        </Typography>
+                                    </Box>
+                                </Modal>
+
+
+
+
+
+
                             </div>
                         </div>
                     </div>

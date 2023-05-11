@@ -30,16 +30,17 @@ router.get('/neo4j_getnames',async function(req,res,next){
 
     let result = await neo4j_calls.get_names();
     
-    console.log("result="+result);
+    // console.log("result="+result);
     let alldata=[];
     result.map((p)=>{
-        console.log(p._fields);
+        // console.log(p._fields);
         alldata.push(p._fields); 
     })
-    console.log("alldata="+alldata);
+    // console.log("alldata="+alldata);
     alldata.map((i)=>{
-        console.log(i[0]+" "+i[1].name+" "+i[1].status);
+        console.log(i[0].low+" "+i[1]+" "+i[2].name+" "+i[2].status);
     })
+    // console.log("logged="+alldata[13][0].low+" "+alldata[13][1]+" "+alldata[13][2].name+" "+alldata[13][2].status);
     res.status(200).send(alldata);
     return alldata;
 
@@ -65,9 +66,9 @@ router.get('/neo4j_getrelationships',async function(req,res,next){
 
 router.post('/neo4j_deletenode',async function(req,res,next){
     
-    let name = req.body.name;
-    console.log("name",name);
-    let string = await neo4j_calls.delete_node(name);
+    let id = req.body.id;
+    console.log("id",id);
+    let string = await neo4j_calls.delete_node(id);
     res.status(200).send("User deleted");
     return 700000;
 
@@ -98,7 +99,6 @@ router.get('/neo4j_getimpacted/:id',async function(req,res,next){
 
 router.get('/neo4j_getdependent/:id',async function(req,res,next){
     let node1 = req.params.id;
-    console.log("req.params.id="+req.params.id);
     let result = await neo4j_calls.get_dependent(node1);
     let alldata=[];
     result.map((p)=>{
