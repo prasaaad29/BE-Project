@@ -113,7 +113,7 @@ function GetDependent() {
                                 />
                             </div>
                             <div className="mb-3 col-12">
-                                <button type="submit" className="col-12 p-3 btn btn-success my-2 fs-5" onClick={submithandler}>Get Impacted nodes</button>
+                                <button type="submit" className="col-12 p-3 btn btn-success my-2 fs-5" onClick={submithandler}>Get Dependent nodes</button>
                             </div>
                             <div className="mb-3 col-12">
                                 <button type="button" className="col-12 p-3 btn btn-dark my-2 fs-5" onClick={goback}>Go Back</button>

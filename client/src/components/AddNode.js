@@ -18,7 +18,7 @@ function AddNode() {
     }
 
     const submithandler = async (e) => {
-        const { type,name,staus } = data;
+        const { type,name,status } = data;
         e.preventDefault();
 
         const res = await fetch("/test_api/neo4j_post", {
@@ -26,12 +26,13 @@ function AddNode() {
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({ type,name,staus }),
+            body: JSON.stringify({ type,name,status }),
         });
 
         const stat = res.status;
 
         console.log(stat);
+        console.log("res"+res);
 
         if (stat === 200) {
             window.alert("node added !!");
@@ -144,7 +145,7 @@ function AddNode() {
                         <div className='row heheightofpagei'>
                             <div className="col-12 d-flex flex-column justify-content-center align-items-center">
                                 <div className='col-12 mx-auto my-5'>
-                                    {nodes.map((p) => (<a className="btn btn-success btn-lg m-3 rounded-pill p-4" tabindex="-1" role="button" aria-disabled="true">{p}</a>))}
+                                    {nodes.map((p) => (<a className="btn btn-success btn-lg m-3 rounded-pill p-4" tabindex="-1" role="button" aria-disabled="true">{p[2].name}</a>))}
                                 </div>
                             </div>
                         </div>
